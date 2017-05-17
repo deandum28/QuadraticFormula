@@ -1,0 +1,191 @@
+fileFormatVersion: 2
+guid: 4f5c86aaf30f44b6f82ee6238a9c163e
+timeCreated: 1494638553
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Object001
+    100004: Object002
+    100006: pCube1
+    100008: pCube2
+    100010: pCube3
+    100012: pCube4
+    100014: pCube5
+    100016: Ship model Zbrush_copy
+    100018: Ship model Zbrush_copy1
+    100020: transform1
+    100022: transform2
+    100024: transform3
+    100026: transform4
+    100028: transform5
+    100030: transform6
+    100032: transform7
+    100034: transform8
+    100036: polySurface1
+    100038: polySurface10
+    100040: polySurface11
+    100042: polySurface12
+    100044: polySurface13
+    100046: polySurface14
+    100048: polySurface15
+    100050: polySurface16
+    100052: polySurface17
+    100054: polySurface2
+    100056: polySurface3
+    100058: polySurface4
+    100060: polySurface5
+    100062: polySurface6
+    100064: polySurface7
+    100066: polySurface8
+    100068: polySurface9
+    100070: polySurface9 1
+    100072: transform10
+    100074: transform11
+    100076: transform12
+    100078: transform13
+    100080: transform14
+    100082: transform15
+    100084: transform16
+    100086: transform17
+    100088: transform18
+    100090: transform19
+    100092: transform20
+    100094: transform21
+    100096: transform22
+    100098: transform23
+    100100: transform24
+    100102: transform25
+    100104: transform26
+    100106: transform9
+    400000: //RootNode
+    400002: Object001
+    400004: Object002
+    400006: pCube1
+    400008: pCube2
+    400010: pCube3
+    400012: pCube4
+    400014: pCube5
+    400016: Ship model Zbrush_copy
+    400018: Ship model Zbrush_copy1
+    400020: transform1
+    400022: transform2
+    400024: transform3
+    400026: transform4
+    400028: transform5
+    400030: transform6
+    400032: transform7
+    400034: transform8
+    400036: polySurface1
+    400038: polySurface10
+    400040: polySurface11
+    400042: polySurface12
+    400044: polySurface13
+    400046: polySurface14
+    400048: polySurface15
+    400050: polySurface16
+    400052: polySurface17
+    400054: polySurface2
+    400056: polySurface3
+    400058: polySurface4
+    400060: polySurface5
+    400062: polySurface6
+    400064: polySurface7
+    400066: polySurface8
+    400068: polySurface9
+    400070: polySurface9 1
+    400072: transform10
+    400074: transform11
+    400076: transform12
+    400078: transform13
+    400080: transform14
+    400082: transform15
+    400084: transform16
+    400086: transform17
+    400088: transform18
+    400090: transform19
+    400092: transform20
+    400094: transform21
+    400096: transform22
+    400098: transform23
+    400100: transform24
+    400102: transform25
+    400104: transform26
+    400106: transform9
+    2300000: Ship model Zbrush_copy1
+    2300002: polySurface9
+    3300000: Ship model Zbrush_copy1
+    3300002: polySurface9
+    4300000: Ship model Zbrush_copy1
+    4300002: polySurface9
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

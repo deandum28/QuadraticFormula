@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+
 
 namespace MinionMathMayhem_Ship
 {
@@ -11,8 +13,10 @@ namespace MinionMathMayhem_Ship
 		public static event ToggleGameEventSignal GameEventSignal;
 
 
-		public GameObject Minion2, Minion3;
+		public GameObject Minion2, Minion3, SpawnNewMinon;
 		public GameObject Exit2, Exit3;
+		public Text score;
+
 
 		private void OnTriggerEnter(Collider actor)
 		{
@@ -23,7 +27,7 @@ namespace MinionMathMayhem_Ship
 				if (cacheNumber == 6) {
 					StartCoroutine (Activation ());
 				} else if (cacheNumber != 6) {
-					Score.ScoreUpdate_Incorrect += "1";
+					IncorrectScore ();
 				}
 				Destroy (actor.gameObject);
 				GameEventSignal ();
@@ -33,10 +37,28 @@ namespace MinionMathMayhem_Ship
 
 		IEnumerator Activation()
 		{
-			Score.ScoreUpdate_Correct += 1;
-			yield return new WaitForSeconds(5);
+			CorrectScore ();
+			SpawnNewMinon.transform.GetChild (1).gameObject.SetActive (true);
+			yield return new WaitForSeconds(2);
+			SpawnNewMinon.transform.GetChild (0).gameObject.SetActive (true);
+			SpawnNewMinon.transform.GetChild (1).gameObject.SetActive (false);
+			yield return new WaitForSeconds(1f);
 			Minion3.SetActive (true); 
 			Exit3.SetActive (true);
+		}
+
+		private void CorrectScore(){
+			string UserScore = score.text.ToString ();
+			int newS = int.Parse (UserScore);
+			newS += 5;
+			score.text = newS.ToString ();
+		}
+
+		private void IncorrectScore(){
+			string UserScore = score.text.ToString ();
+			int newS = int.Parse (UserScore);
+			newS -= 1;
+			score.text = newS.ToString() ;
 		}
 			
 		private int RetrieveActorIdentity(Collider actorObject)

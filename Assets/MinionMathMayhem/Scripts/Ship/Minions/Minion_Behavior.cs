@@ -285,7 +285,7 @@ namespace MinionMathMayhem_Ship
         // This function is called when the minions are going to walk.
         private void Walk()
         {
-            transform.Translate(new Vector3(0, 0, 1) * walkSpeed * Time.deltaTime);
+				transform.Translate (new Vector3 (0f, 0f, 1f) * climbSpeed * 1.5f * Time.deltaTime);
         } // Walk()
 
 

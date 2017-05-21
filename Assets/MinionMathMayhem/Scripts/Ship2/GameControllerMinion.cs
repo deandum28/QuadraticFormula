@@ -26,6 +26,37 @@ namespace MinionMathMayhem_Ship
 			get {
 				return number;
 			} // get
-		} // MinionNumber
+		}
+			
+		/*
+		private void OnTriggerEnter(Collider other)
+		{
+			if (other.gameObject.tag == "Exit") 
+			{
+				Debug.Log (number);
+				Destroy (this.gameObject);
+				if (number == 12) {
+					Minion2.SetActive (true); 
+					Exit2.SetActive (true);
+				}
+			}
+			else if (other.gameObject.tag == "Exit2") 
+			{
+				Debug.Log (number);
+				Destroy (this.gameObject);
+				if (number == 6) {
+					Minion3.SetActive (true); 
+					Exit3.SetActive (true);
+				}
+			}
+			if (other.gameObject.tag == "Exit3") 
+			{
+				Debug.Log (number);
+				Destroy (this.gameObject);
+				if (number == 4) {
+					Debug.Log ("You won");
+				}
+			}
+		}*/
 	}
 }

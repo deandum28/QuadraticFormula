@@ -247,9 +247,11 @@ namespace MinionMathMayhem_Ship
 
             // Entire array
             else
+            {
                 for (short i = 0; i < numberSetArray.Length; i++)
                     if (i != answerIndex) // Make sure the answer doesn't get erased by accident
                         numberSetArray[i] = (short)scriptProblemBox.Access_GetRandomNumber();
+            }
         } // FillArray_Fill()
 
 

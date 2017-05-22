@@ -28,12 +28,15 @@ public class DataBaseManager : MonoBehaviour
     public GameObject notInDBText;
     public GameObject notCorrectText;
 
-    private static string connectionString =
+    /*private static string connectionString =
             "Server=uindyrdb.cbr0wyxiy6tj.us-west-2.rds.amazonaws.com;" +
             "Database=uindyrdb;" +
             "UserID=uindyRDB;" +
             "Password=Usef1234;";
-    //"Pooling=false";
+    //"Pooling=false";*/
+
+    private static string connectionString = "server=csci03.is.uindy.edu;uid=test;" +
+                                        "pwd=Test1234!;database=QuadraticFormula;";
 
 
 

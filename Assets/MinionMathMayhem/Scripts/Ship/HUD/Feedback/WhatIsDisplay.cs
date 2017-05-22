@@ -26,6 +26,10 @@ namespace MinionMathMayhem_Ship
                 public GameObject eventLetterTextbox;
             // Animation: Index Char
                 private Animator eventLetterAnim;
+
+        // Quadratic Formula Animation
+        public GameObject QuadraticFormula;
+        private Animator FormulaAnimator;
         // ----
 
 
@@ -37,6 +41,7 @@ namespace MinionMathMayhem_Ship
             // Initialize the internal object's components
                 whatIsAnim = whatIsTextbox.GetComponent<Animator>();
                 eventLetterAnim = eventLetterTextbox.GetComponent<Animator>();
+                FormulaAnimator = QuadraticFormula.GetComponent<Animator>();
         } // Awake()
 
 
@@ -47,6 +52,7 @@ namespace MinionMathMayhem_Ship
             yield return new WaitForSeconds(waitTime);
             whatIsAnim.SetTrigger("Slide");
             eventLetterAnim.SetTrigger("SlideIn");
+            FormulaAnimator.SetTrigger("ShakeFormula");
         } // NextLetterEventPlay()
 
 

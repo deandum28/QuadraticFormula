@@ -30,9 +30,11 @@ namespace MinionMathMayhem_Ship
             // Switches
                 // This variable will help assure the state of the tutorial execution.
                     private bool tutorialExecutionState = false;
-            // Timed-Out Controlls
-                // Enable Feature
-                    public bool enableForceTimeOut = true;
+                // This variable will hold the state of the DEG, based on the AI Game Challenge.
+                    private bool DEGStatus = false;
+        // Timed-Out Controlls
+        // Enable Feature
+        public bool enableForceTimeOut = true;
                 // Minutes to forcibly time out
                     public float timedOut_Seconds = 210f;
             // Accessors and Communication
@@ -51,6 +53,7 @@ namespace MinionMathMayhem_Ship
         private void OnEnable()
         {
             GameController.TutorialSequence += TutorialMain_Driver_Accessor;
+            AI_GameChallenge.DEGState += Update_DEG_Status;
         } // OnEnable()
 
 
@@ -62,7 +65,22 @@ namespace MinionMathMayhem_Ship
         private void OnDisable()
         {
             GameController.TutorialSequence -= TutorialMain_Driver_Accessor;
+            AI_GameChallenge.DEGState -= Update_DEG_Status;
         } // OnDisable()
+
+
+
+        /// <summary>
+        ///     This function will set the state of the Dynamic Equation Generator;
+        ///     this merely is used for the tutorial sequence.
+        /// </summary>
+        /// <param name="state">
+        ///     This will push the state of the DEG
+        /// </param>
+        private void Update_DEG_Status(bool state)
+        {
+            DEGStatus = state;
+        } // Update_DEG_Status()
 
 
 
@@ -237,7 +255,7 @@ namespace MinionMathMayhem_Ship
             // Flip the Tutorial State
                 ToggleTutorialState();
             // Play the movie
-                TutorialMain_Play_Movie(PlayIndex, randomIndex);
+                TutorialMain_Play_Movie(index, randomIndex);
             // Check the tutorial state
                 yield return (StartCoroutine(RunTimeExecution_BackEnd(true, false, index)));
         } // TutorialMain_Driver_RunTutorial_Movie()
@@ -270,7 +288,7 @@ namespace MinionMathMayhem_Ship
             // Flip the Tutorial State
                 ToggleTutorialState();
             // Render the dialog window
-                TutorialMain_Play_Window(PlayIndex, randomIndex);
+                TutorialMain_Play_Window(index, randomIndex);
             // Check the tutorial state
                 yield return (StartCoroutine(RunTimeExecution_BackEnd(false, true, index)));
         } // TutorialMain_Driver_RunTutorial_Window()
@@ -304,7 +322,13 @@ namespace MinionMathMayhem_Ship
                     return 0;
 
             // Generate and return the randomized range.
+            // Check the state of the DEG
+            if (DEGStatus)
+                // DEG is running
                 return Random.Range(0, array.Count);
+            else
+                // DEG is NOT running
+                return 0;
         } // Randomized()
 
 

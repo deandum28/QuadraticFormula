@@ -46,6 +46,9 @@ namespace MinionMathMayhem_Ship
                 // Delegates
                     public delegate void ProblemBox_Complexity(bool random, bool movie = false, bool window = false, int indexKey = 0);
                     public static event ProblemBox_Complexity ProblemBox_DEGComplexity;
+                // Signify the state of the Dynamic Equation Generator
+                    public delegate void DEGState_Complexity(bool stateOfDEG);
+                    public static event DEGState_Complexity DEGState;
                 // Tutorial session (if the user isn't understanding the material)
                     public delegate void TutorialSessionDelegate(bool random, bool movie = false, bool window = false, int indexKey = 0);
                     public static event TutorialSessionDelegate TutorialSession;
@@ -110,7 +113,7 @@ namespace MinionMathMayhem_Ship
 
 
             if (current_Percentage <= 0)
-                TutorialSession(true);
+                    TutorialSession(true);
         } // Challenge_DEG_Critria ()
 
 

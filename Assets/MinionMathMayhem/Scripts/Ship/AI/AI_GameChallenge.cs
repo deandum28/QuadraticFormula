@@ -111,9 +111,8 @@ namespace MinionMathMayhem_Ship
                 } // if DEG Toggle
             } // if: grade >= 80
 
-
-            if (current_Percentage <= 0)
-                    TutorialSession(true);
+            else if (current_Percentage <= 0)
+                TutorialSession(true);
         } // Challenge_DEG_Critria ()
 
 

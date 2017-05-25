@@ -14,6 +14,7 @@ namespace MinionMathMayhem_Ship
 
 
 		public GameObject Minion2, Minion3, SpawnNewMinon;
+		public GameObject DeleteQuestion, spawnQuestion;
 		public GameObject Exit2, Exit3;
 		public Text score;
 
@@ -39,11 +40,13 @@ namespace MinionMathMayhem_Ship
 		{
 			CorrectScore ();
 			SpawnNewMinon.transform.GetChild (1).gameObject.SetActive (true);
+			DeleteQuestion.SetActive (false);
 			yield return new WaitForSeconds(2);
 			SpawnNewMinon.transform.GetChild (0).gameObject.SetActive (true);
 			SpawnNewMinon.transform.GetChild (1).gameObject.SetActive (false);
 			yield return new WaitForSeconds(1f);
 			Minion3.SetActive (true); 
+			spawnQuestion.SetActive (true);
 			Exit3.SetActive (true);
 		}
 

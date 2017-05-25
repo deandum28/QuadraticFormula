@@ -436,7 +436,7 @@ namespace MinionMathMayhem_Ship
         {
             Debug.LogError("Critical Error: Could not find a reference to [ " + refLink + " ]!");
             Debug.LogError("  Can not continue further execution until the internal issues has been resolved!");
-            Time.timeScale = 0; // Halt the game
+          //  Time.timeScale = 0; // Halt the game
         } // MissingReferenceError()
     } // End of Class
 } // Namespace

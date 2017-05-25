@@ -296,6 +296,8 @@ namespace MinionMathMayhem_Ship
 			if (sceneName == "Ship2") {
 				transform.Translate (new Vector3 (0f, 0.25f, 0.5f) * climbSpeed * 1.5f * Time.deltaTime);
 				//Debug.Log("This scene is called: " + sceneName);
+			} else if (sceneName == "Ship3") {
+				transform.Translate (new Vector3 (0f, 0.05f, 0.5f) * climbSpeed * 1.5f * Time.deltaTime);
 			}
 			else {
 				transform.Translate (new Vector3 (0f, 1f, 0f) * climbSpeed * 1.5f * Time.deltaTime);

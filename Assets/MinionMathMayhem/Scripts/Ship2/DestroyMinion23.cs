@@ -13,6 +13,7 @@ namespace MinionMathMayhem_Ship
 
 
 		public GameObject Minion2, Minion3, SpawnNewMinon;
+		public GameObject DeleteQuestion;
 		public GameObject Exit2, Exit3;
 		public Text score;
 
@@ -25,6 +26,8 @@ namespace MinionMathMayhem_Ship
 				if (cacheNumber == 4) {
 					StartCoroutine (Activation ());
 					Debug.Log ("You Won");
+					thatsItAnim.SetTrigger ("Drop");
+					StartCoroutine (Waiting ());
 				} else if (cacheNumber != 4) {
 					IncorrectScore ();
 				}
@@ -37,10 +40,26 @@ namespace MinionMathMayhem_Ship
 		{
 			CorrectScore ();
 			SpawnNewMinon.transform.GetChild (1).gameObject.SetActive (true);
+			DeleteQuestion.SetActive (false);
 			yield return new WaitForSeconds(2);
 			SpawnNewMinon.transform.GetChild (0).gameObject.SetActive (true);
 			SpawnNewMinon.transform.GetChild (1).gameObject.SetActive (false);
 			yield return new WaitForSeconds(1f);
+
+		}
+
+
+		private Animator thatsItAnim;
+		public GameObject thatsIt;
+		// Use this for initialization
+		void Awake () {
+			thatsItAnim = thatsIt.GetComponent<Animator>();
+		}
+
+		IEnumerator Waiting()
+		{
+			yield return new WaitForSeconds (7f);
+			Time.timeScale = 0;
 		}
 
 		private void CorrectScore(){

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI; // To use the 'text' type, we must include this
-using System.Collections.Generic;
 using System.Collections;
 
 namespace MinionMathMayhem_Ship

@@ -195,7 +195,7 @@ namespace MinionMathMayhem_Ship
                 if (indexPosArr[i] == 'R')
                     lonelyIndex = i;                    // Found the index; store it for future evaluations
 
-            if (lonelyIndex == oldRand)                 // If we already used it, use the older randomizer
+            if ((lonelyIndex + 1) == oldRand)                 // If we already used it, use the older randomizer
                 return MoreRandomWithRandomThatIsRandom();// NOTE: This might not always work at first try due to the two use limit.
                                                           //    But this will work at the second time this is evaluated.
             else

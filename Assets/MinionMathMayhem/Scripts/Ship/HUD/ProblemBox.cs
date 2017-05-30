@@ -49,6 +49,9 @@ namespace MinionMathMayhem_Ship
                 // False: No terms shift to the right, all terms stay on the left.
                 // True: All terms can shift left or right
                     public bool complexLevel = false;
+            // Broadcast the index positions
+                public delegate void ReportIndexPositionBroadcast(char indexHighlight, char indexPosition);     // [NG] indexHighlight = Which index we are referring too [A|B|C];  indexPosition = is the index left or right of the equals sign
+                public static event ReportIndexPositionBroadcast ReportIndexPosition;
         // ----
 
 
@@ -112,6 +115,8 @@ namespace MinionMathMayhem_Ship
                 Generate_TranslateIndexes();
             // Sort the indexes in cached arrays
                 Generate_DEGCacheSort();
+            // Report the indexes to other game components that are listening
+                ReportNewIndexPositions();
             // Display the new equation
                 Generate_Display_DEG();
             // Thrash Cache Array
@@ -123,6 +128,18 @@ namespace MinionMathMayhem_Ship
                 ThrashListIndexValues(index_C_Prop);
         } // Generate()
 
+
+
+        /// <summary>
+        ///     [NG] This will report all of the indexes positions for game components that require it
+        ///     (eg. LetterBox)
+        /// </summary>
+        private void ReportNewIndexPositions()
+        {
+            ReportIndexPosition('A', (char)index_A_Prop[1]);      // [NG] Report the indexes and their positions
+            ReportIndexPosition('B', (char)index_B_Prop[1]);
+            ReportIndexPosition('C', (char)index_C_Prop[1]);
+        } // ReportNewIndexPositions()
 
 
 

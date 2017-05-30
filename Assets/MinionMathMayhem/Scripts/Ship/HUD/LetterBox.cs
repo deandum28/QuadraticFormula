@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI; // To use the 'text' type, we must include this
+using System.Collections.Generic;
 using System.Collections;
 
 namespace MinionMathMayhem_Ship
@@ -36,9 +37,60 @@ namespace MinionMathMayhem_Ship
                 private char indexChar;
             // Previous random number
                 private int oldRand;
+            // [NG] Store the index positions in the array; used for the randomizer and selecting
+                private char[] indexPosArr = new char[3];
             // Accessors and Communication
                 private GameController scriptGameController;
         // ----
+
+
+
+        /// <summary>
+        /// Signal Listener: Detected
+        /// </summary>
+        private void OnEnable()
+        {
+            // [NG] Retrieve the index positions and evaluate them accordingly
+            ProblemBox.ReportIndexPosition += ReportedIndexPositions;
+        } // OnEnable()
+
+
+
+        /// <summary>
+        /// Signal Listener: Deactivate
+        /// </summary>
+        private void OnDisable()
+        {
+            // [NG] Retrieve the index positions and evaluate them accordingly
+            ProblemBox.ReportIndexPosition -= ReportedIndexPositions;
+        } // OnDisable()
+
+
+
+        /// <summary>
+        /// [NG] Store the updated the index positions for later use.
+        /// This will be useful for using a preferred randomization to select the rightmost indexs over the left most.
+        /// </summary>
+        /// <param name="indexHighlight">Which index we're selecting [A|B|C]</param>
+        /// <param name="indexPosition">Where the index is located [L]eft or [R]ight</param>
+        private void ReportedIndexPositions(char indexHighlight, char indexPosition)
+        {
+            switch (indexHighlight)
+            {
+                case 'A':
+                    indexPosArr[0] = indexPosition;
+                    break;
+                case 'B':
+                    indexPosArr[1] = indexPosition;
+                    break;
+                case 'C':
+                    indexPosArr[2] = indexPosition;
+                    break;
+                default:
+                    Debug.LogError("Incorrect indexHighlight was passed!  Please inspect this error!  Highlighter reported: " + indexHighlight);
+                    break;
+            } // switch
+        } // ReportedIndexPositions()
 
 
 
@@ -56,7 +108,7 @@ namespace MinionMathMayhem_Ship
         private void Generate()
         {
             // Use the randomized var to choose which index to select
-            switch (MoreRandomWithRandomThatIsRandom())
+            switch (ComplexLevelRandomizer())
             {
                 case 1:
                     letterBox.text = "A";
@@ -108,6 +160,92 @@ namespace MinionMathMayhem_Ship
 
             return oldRand;
         } // MoreRandomWithRandomThatIsRandom()
+
+
+
+        /// <summary>
+        /// [NG] This will try to prefer randomizations in favor of the right most if possible
+        /// If the equation is not dynamic, then the previous randomization algorithm is used instead.
+        /// </summary>
+        /// <returns>Returns the selected index; untranslated</returns>
+        private int ComplexLevelRandomizer()
+        {
+            int equationState = ComplexCheckState();    // Retain the equation state
+
+            if (equationState == 0 || equationState == 3)   // Equation is simplified; use older algorithm
+                return MoreRandomWithRandomThatIsRandom();
+            else if (equationState == 1)                    // Evaluates the lonely index
+                return ComplexLevelRandomizer_OneIndex();
+            else                                            // Two indexes are on the right side
+                return ComplexLevelRandomizer_TwoIndexes();
+        } // ComplexLevelRandomizer()
+
+
+
+        /// <summary>
+        /// This function will determine if the lonely index is selectable or if the older randomizer must be used
+        /// </summary>
+        /// <returns>
+        /// Returns the selected index</returns>
+        private int ComplexLevelRandomizer_OneIndex()
+        {
+            int lonelyIndex = 0;                        // Used for finding the index that is on the right
+
+            for (int i = 0; i < indexPosArr.Length; i++)// Scan array and find the index that is on the right
+                if (indexPosArr[i] == 'R')
+                    lonelyIndex = i;                    // Found the index; store it for future evaluations
+
+            if (lonelyIndex == oldRand)                 // If we already used it, use the older randomizer
+                return MoreRandomWithRandomThatIsRandom();// NOTE: This might not always work at first try due to the two use limit.
+                                                          //    But this will work at the second time this is evaluated.
+            else
+            {
+                oldRand = lonelyIndex + 1;              // Use that lonely index
+                return oldRand;
+            } // else
+        } // ComplexLevelRandomizer_OneIndex()
+
+
+
+        /// <summary>
+        ///     Finds the index to select that are on the right side but also avoid duplication
+        /// </summary>
+        /// <returns>
+        /// Returns the specific index that fits the criteria.
+        /// </returns>
+        private int ComplexLevelRandomizer_TwoIndexes()
+        {
+            for (int i = 0; i < indexPosArr.Length; i++)            // Scan the array
+                if ((indexPosArr[i] == 'R') && (i + 1 != oldRand))  // If the array index contains 'R' and was not previously selected
+                {
+                    oldRand = (i + 1);                              // Use it
+                    return oldRand;
+                } // if
+
+            return -1;      // To avoid compiling errors; if -1 is returned then something went horribly wrong.
+        } // ComplexLevelRandomizer_TwoIndexes()
+
+
+
+        /// <summary>
+        /// [NG] This will evaluate if the indexes are dynamic or simplified
+        /// </summary>
+        /// <returns>
+        /// 0 = All indexes are simplified (Ax^2 + Bx + C = 0  OR  0 = Ax^2 + Bx + C)
+        /// 1 = Only one index is on the right
+        /// 2 = Two indexes are on the right
+        /// 3 = All indexes are on the right
+        /// </returns>
+        private int ComplexCheckState()
+        {
+            int numIndex = 0;                               // This will store how many indexes are on the right side
+
+            for (int i = 0; i < indexPosArr.Length; i++)    // Evaluate what indexes are on the right side
+                if (indexPosArr[i] == 'R')
+                    numIndex++;
+
+            return numIndex;                                // Return how many indexes were on the right side
+        } // ComplexCheckState()
 
 
 

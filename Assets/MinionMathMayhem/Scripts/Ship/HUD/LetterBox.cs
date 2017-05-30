@@ -36,6 +36,9 @@ namespace MinionMathMayhem_Ship
                 private char indexChar;
             // Previous random number
                 private int oldRand;
+            // Allow the developer to use the older randomization algorithm over the new
+            //  The developer can access this via Inspector
+                public bool useOldRandomAlgorithm = false;
             // [NG] Store the index positions in the array; used for the randomizer and selecting
                 private char[] indexPosArr = new char[3];
             // Accessors and Communication
@@ -170,6 +173,11 @@ namespace MinionMathMayhem_Ship
         private int ComplexLevelRandomizer()
         {
             int equationState = ComplexCheckState();    // Retain the equation state
+
+            // OVERRIDE SWITCH
+            if (useOldRandomAlgorithm)                      // By request (inspector), forcibly use the older randomization
+                return MoreRandomWithRandomThatIsRandom();  // algorithm, bypassing the newer functionality.
+            // ----
 
             if (equationState == 0 || equationState == 3)   // Equation is simplified; use older algorithm
                 return MoreRandomWithRandomThatIsRandom();

@@ -59,7 +59,7 @@ namespace MinionMathMayhem_Ship
                 StartCoroutine(WaitForUser(SecondsToPause));
             }
 
-            if(Input.GetKeyDown(KeyCode.Return) && gamePaused == true)
+            if(Input.anyKey && gamePaused == true)
             {
                 gamePaused = false;
                 mustPauseHere = false;

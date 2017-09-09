@@ -27,11 +27,16 @@ namespace MinionMathMayhem_Ship
             // Animation: Index Char
                 private Animator eventLetterAnim;
 
+        private bool mustPauseHere = false;
+        private bool gamePaused = false;
+
         // Quadratic Formula Animation
         public GameObject QuadraticFormula;
         private Animator FormulaAnimator;
         // ----
 
+        public GameObject TextToShowOnPause;
+        public float SecondsToPause;
 
 
 
@@ -42,9 +47,27 @@ namespace MinionMathMayhem_Ship
                 whatIsAnim = whatIsTextbox.GetComponent<Animator>();
                 eventLetterAnim = eventLetterTextbox.GetComponent<Animator>();
                 FormulaAnimator = QuadraticFormula.GetComponent<Animator>();
+                TextToShowOnPause.SetActive(false);
         } // Awake()
 
+        void Update()
+        {
+            if (mustPauseHere == true)
+            {
+                gamePaused = true;
+                mustPauseHere = false;
+                StartCoroutine(WaitForUser(SecondsToPause));
+            }
 
+            if(Input.GetKeyDown(KeyCode.Return) && gamePaused == true)
+            {
+                gamePaused = false;
+                mustPauseHere = false;
+                TextToShowOnPause.SetActive(false);
+                Time.timeScale = 1;
+                AudioListener.volume = 1;
+            }
+        }
 
         // Plays the what is "A, B, or C" animation
         private IEnumerator NextLetterEventPlay(float waitTime)
@@ -55,12 +78,21 @@ namespace MinionMathMayhem_Ship
             FormulaAnimator.SetTrigger("ShakeFormula");
         } // NextLetterEventPlay()
 
-
+        private IEnumerator WaitForUser(float waitTime)
+        {
+            yield return new WaitForSeconds(waitTime);
+            AudioListener.volume = 0;
+            Time.timeScale = 0;
+            Cursor.visible = true;
+            TextToShowOnPause.SetActive(true);
+        }
 
         // Allow other objects to gain access to the 'NextLetterEventPlay' function.
         public void Access_NextLetterEventPlay(float waitTime)
         {
+            mustPauseHere = true;
             StartCoroutine(NextLetterEventPlay(waitTime));
+
         } // Access_NextLetterEventPlay()
     } // End of Class
 } // Namespace

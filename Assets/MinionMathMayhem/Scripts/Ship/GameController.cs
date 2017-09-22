@@ -561,8 +561,8 @@ namespace MinionMathMayhem_Ship
         // When a reference has not been properly initialized, this function will display the message within the console and stop the game.
         private void MissingReferenceError(string refLink = "UNKNOWN_REFERENCE_NOT_DEFINED")
         {
-            Debug.LogError("Critical Error: Could not find a reference to [ " + refLink + " ]!");
-            Debug.LogError("  Can not continue further execution until the internal issues has been resolved!");
+//            Debug.LogError("Critical Error: Could not find a reference to [ " + refLink + " ]!");
+//            Debug.LogError("  Can not continue further execution until the internal issues has been resolved!");
             Time.timeScale = 0; // Halt the game
         } // MissingReferenceError()
     } // End of Class

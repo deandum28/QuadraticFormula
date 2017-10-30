@@ -98,6 +98,7 @@ namespace MinionMathMayhem_Ship
         {
             if (current_Percentage >= 80)
             {
+                scriptProblemBox.SwitchComplexityLevel(true);
                 if (complexityExecuteGradePass <= current_EvaluationPasses)
                 {
                     // Tutorial purposes
@@ -106,8 +107,6 @@ namespace MinionMathMayhem_Ship
                         DEGComplex = true;
                         ProblemBox_DEGComplexity(false, true, false, 1);
                     } // Tutorial
-
-                    scriptProblemBox.SwitchComplexityLevel(true);
                 } // if DEG Toggle
             } // if: grade >= 80
 
@@ -133,5 +132,10 @@ namespace MinionMathMayhem_Ship
             // Adjust the game's performance based on user's performance
                 Challenge_DEG_Critria();
         } // Inspector_UserGrade()
+
+        public bool getComplex()
+        {
+            return DEGComplex;
+        }
     } // End of Class
 } // Namespace

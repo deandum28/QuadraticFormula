@@ -55,7 +55,6 @@ namespace MinionMathMayhem_Ship
         // ----
 
 
-
         // Use this for initialization
         private void Awake()
         {

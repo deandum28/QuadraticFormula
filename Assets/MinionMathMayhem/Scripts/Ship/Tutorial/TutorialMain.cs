@@ -43,7 +43,7 @@ namespace MinionMathMayhem_Ship
                     public static event TutorialSequenceFinishedSig TutorialFinished;
         // ---------------------------------
 
-
+        public AI_GameChallenge AIComplexity;
 
 
         /// <summary>
@@ -206,7 +206,9 @@ namespace MinionMathMayhem_Ship
         /// </returns>
         private IEnumerator TutorialMain_Driver_Play_Movie(int PlayIndex, bool randomIndex)
         {
-            yield return (StartCoroutine(TutorialMain_Driver_RunTutorial_Movie(PlayIndex, randomIndex)));
+            if (AIComplexity.getComplex() == true)
+                yield return (StartCoroutine(TutorialMain_Driver_RunTutorial_Movie(1, false)));
+            else yield return (StartCoroutine(TutorialMain_Driver_RunTutorial_Movie(0, false)));
         } // TutorialMain_Driver_Play_Movie()
 
 

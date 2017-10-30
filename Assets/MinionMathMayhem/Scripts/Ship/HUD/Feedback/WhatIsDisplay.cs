@@ -61,11 +61,13 @@ namespace MinionMathMayhem_Ship
 
             if(Input.anyKey && gamePaused == true)
             {
+                if (Input.GetMouseButton(0) || Input.GetMouseButton(1) || Input.GetMouseButton(2))
+                    return;
+
                 gamePaused = false;
                 mustPauseHere = false;
                 TextToShowOnPause.SetActive(false);
                 Time.timeScale = 1;
-                AudioListener.volume = 1;
             }
         }
 
@@ -81,7 +83,6 @@ namespace MinionMathMayhem_Ship
         private IEnumerator WaitForUser(float waitTime)
         {
             yield return new WaitForSeconds(waitTime);
-            AudioListener.volume = 0;
             Time.timeScale = 0;
             Cursor.visible = true;
             TextToShowOnPause.SetActive(true);

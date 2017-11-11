@@ -9,6 +9,7 @@ public class CheckDone : MonoBehaviour {
 	private Animator thatsItAnim;
 	public GameObject thatsIt;
 	private Text value;
+	public bool BoolAnswer = false;
 	// Use this for initialization
 	void Awake () {
 		thatsItAnim = thatsIt.GetComponent<Animator>();
@@ -23,11 +24,14 @@ public class CheckDone : MonoBehaviour {
 			Debug.Log ("Space pressed");
 			string UserScore = value.text.ToString ();
 			if (UserScore == "4") {
+				BoolAnswer = true;
 				thatsItAnim.SetTrigger ("Drop");
 				StartCoroutine (Waiting ());
 
 			} else {
 				Debug.Log ("Wrong Answer!");
+				BoolAnswer = false;
+			//	MoveSample.MoveMinion ();
 			}
 
 		}

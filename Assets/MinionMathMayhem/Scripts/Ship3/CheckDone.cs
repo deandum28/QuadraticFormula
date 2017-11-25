@@ -7,16 +7,28 @@ public class CheckDone : MonoBehaviour {
 
 
 	private Animator thatsItAnim;
+
 	public GameObject thatsIt;
+
 	private Text value;
+	public Text oopsie;
+
 	public bool BoolAnswer = false;
-	// Use this for initialization
+
+
+	public Splash MoveSplash;
+	private int countOopsie = 0;
+
+
+
+
 	void Awake () {
 		thatsItAnim = thatsIt.GetComponent<Animator>();
 		value = GetComponentInChildren<Text> ();
+		oopsie.text = countOopsie.ToString ();
 	}
-	
-	// Update is called once per frame
+
+
 	void Update () {
 
 		if(Input.GetKeyDown(KeyCode.Space))
@@ -31,7 +43,10 @@ public class CheckDone : MonoBehaviour {
 			} else {
 				Debug.Log ("Wrong Answer!");
 				BoolAnswer = false;
-			//	MoveSample.MoveMinion ();
+				MoveSplash.MoveSplash ();
+				countOopsie++;
+				oopsie.text = countOopsie.ToString();
+
 			}
 
 		}

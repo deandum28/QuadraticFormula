@@ -21,15 +21,17 @@ public class Evalution : MonoBehaviour {
 
 
 	void Update() {
-
-
-		
 		if(Input.GetKeyDown(KeyCode.Space))
 			{
-
+			if(answer == true)
+				{
+					
+				}
+			else
+				{
 				Debug.Log ("Space was pressed again");
 					MoveGameObject ();
-				
+				}
 			}
 	}
 

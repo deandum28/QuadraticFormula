@@ -7,15 +7,28 @@ public class CheckDone : MonoBehaviour {
 
 
 	private Animator thatsItAnim;
+
 	public GameObject thatsIt;
+
 	private Text value;
-	// Use this for initialization
+	public Text oopsie;
+
+	public bool BoolAnswer = false;
+
+
+	public Splash MoveSplash;
+	private int countOopsie = 0;
+
+
+
+
 	void Awake () {
 		thatsItAnim = thatsIt.GetComponent<Animator>();
 		value = GetComponentInChildren<Text> ();
+		oopsie.text = countOopsie.ToString ();
 	}
-	
-	// Update is called once per frame
+
+
 	void Update () {
 
 		if(Input.GetKeyDown(KeyCode.Space))
@@ -23,11 +36,17 @@ public class CheckDone : MonoBehaviour {
 			Debug.Log ("Space pressed");
 			string UserScore = value.text.ToString ();
 			if (UserScore == "4") {
+				BoolAnswer = true;
 				thatsItAnim.SetTrigger ("Drop");
 				StartCoroutine (Waiting ());
 
 			} else {
 				Debug.Log ("Wrong Answer!");
+				BoolAnswer = false;
+				MoveSplash.MoveSplash ();
+				countOopsie++;
+				oopsie.text = countOopsie.ToString();
+
 			}
 
 		}

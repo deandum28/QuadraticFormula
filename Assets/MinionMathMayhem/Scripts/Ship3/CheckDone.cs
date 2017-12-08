@@ -15,11 +15,9 @@ public class CheckDone : MonoBehaviour {
 
 	public bool BoolAnswer = false;
 
-
 	public Splash MoveSplash;
+
 	private int countOopsie = 0;
-
-
 
 
 	void Awake () {

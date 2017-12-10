@@ -2,15 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetController : MonoBehaviour {
+namespace MinionMathMayhem_Ship4 {
+    public class TargetController : MonoBehaviour {
 
-    public float movementSpeed = 75.0f;
+        public float movementSpeed = 75.0f;
 
-    void Update()
-    {
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime * movementSpeed;
-        var z = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
+        private bool activeTargeting = true;
 
-        transform.Translate(x, 0, z);
+        private void Start() {
+            activeTargeting = true;
+            
+        }
+
+        void Update()
+        {
+            if (activeTargeting == true)
+            {
+                var x = Input.GetAxis("Horizontal") * Time.deltaTime * movementSpeed;
+                var z = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
+
+                transform.Translate(x, 0, z);
+            }
+        }
+
+        public void activateTargeting() {
+            activeTargeting = true;
+        }
+
+        public void deactivateTargeting() {
+            activeTargeting = false;
+        }
     }
 }

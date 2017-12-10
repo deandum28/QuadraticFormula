@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic; // For the 'List' support.
 
-namespace MinionMathMayhem_Ship
+namespace MinionMathMayhem_Ship4
 {
     public class ProblemBox : MonoBehaviour
     {
@@ -24,34 +24,34 @@ namespace MinionMathMayhem_Ship
 
         // Declarations and Initializations
         // ---------------------------------
-            // Quadratic Equation Indexes
-                private int index_A,
-                            index_B,
-                            index_C;
-            // Quadratic Equation Indexes [Properties]
-                private List<object> index_A_Prop = new List<object>();
-                private List<object> index_B_Prop = new List<object>();
-                private List<object> index_C_Prop = new List<object>();
-            // Quadratic Equation Filler [Meaningless; only used for displaying on screen.  Cache arrays]
-                private List<int?> DEG_DisplayLeft = new List<int?>();
-                private List<int?> DEG_DisplayRight = new List<int?>();
-            // Random Number Generator (RNG) range [minimum, maximum]
-                public int minValue,
-                           maxValue;
-            // Accessors and Communication
-                private Text problemBox;
-            // Check if all indexes are in one side or mixed
-                // 0 = Mixed
-                // 1 = Left
-                // 2 = Right
-                    private short complexitySorting = 0;
-            // Complexity Level
-                // False: No terms shift to the right, all terms stay on the left.
-                // True: All terms can shift left or right
-                    public bool complexLevel = false;
-            // Broadcast the index positions
-                public delegate void ReportIndexPositionBroadcast(char indexHighlight, char indexPosition);     // [NG] indexHighlight = Which index we are referring too [A|B|C];  indexPosition = is the index left or right of the equals sign
-                public static event ReportIndexPositionBroadcast ReportIndexPosition;
+        // Quadratic Equation Indexes
+        private int index_A,
+                    index_B,
+                    index_C;
+        // Quadratic Equation Indexes [Properties]
+        private List<object> index_A_Prop = new List<object>();
+        private List<object> index_B_Prop = new List<object>();
+        private List<object> index_C_Prop = new List<object>();
+        // Quadratic Equation Filler [Meaningless; only used for displaying on screen.  Cache arrays]
+        private List<int?> DEG_DisplayLeft = new List<int?>();
+        private List<int?> DEG_DisplayRight = new List<int?>();
+        // Random Number Generator (RNG) range [minimum, maximum]
+        public int minValue,
+                   maxValue;
+        // Accessors and Communication
+        private Text problemBox;
+        // Check if all indexes are in one side or mixed
+        // 0 = Mixed
+        // 1 = Left
+        // 2 = Right
+        private short complexitySorting = 0;
+        // Complexity Level
+        // False: No terms shift to the right, all terms stay on the left.
+        // True: All terms can shift left or right
+        public bool complexLevel = false;
+        // Broadcast the index positions
+        public delegate void ReportIndexPositionBroadcast(char indexHighlight, char indexPosition);     // [NG] indexHighlight = Which index we are referring too [A|B|C];  indexPosition = is the index left or right of the equals sign
+        public static event ReportIndexPositionBroadcast ReportIndexPosition;
         // ----
 
 
@@ -59,7 +59,10 @@ namespace MinionMathMayhem_Ship
         private void Awake()
         {
             // Reference initialization
-                problemBox = GetComponent<Text>();
+            problemBox = GetComponent<Text>();
+
+            if (minValue > maxValue)
+                Debug.LogError("Min Value cannot be greater than Max Value; Problem Box");
         } // Awake()
 
 
@@ -68,15 +71,15 @@ namespace MinionMathMayhem_Ship
         private void InitializeIndexProp()
         {
             // Index A
-                InitializeIndexProp_IndexProperties(index_A_Prop);
+            InitializeIndexProp_IndexProperties(index_A_Prop);
             // Index B
-                InitializeIndexProp_IndexProperties(index_B_Prop);
+            InitializeIndexProp_IndexProperties(index_B_Prop);
             // Index C
-                InitializeIndexProp_IndexProperties(index_C_Prop);
+            InitializeIndexProp_IndexProperties(index_C_Prop);
 
             // Cache List for the HUD
-                InitializeIndexProp_DEGDisplay(DEG_DisplayLeft);
-                InitializeIndexProp_DEGDisplay(DEG_DisplayRight);
+            InitializeIndexProp_DEGDisplay(DEG_DisplayLeft);
+            InitializeIndexProp_DEGDisplay(DEG_DisplayRight);
         } // InitializeIndexProp()
 
 
@@ -93,7 +96,7 @@ namespace MinionMathMayhem_Ship
         // Initialize the DEG_Display[Left|Right] list
         private void InitializeIndexProp_DEGDisplay(List<int?> intList, uint listSize = 3)
         {
-            for(int i = 0; i < listSize; ++i)
+            for (int i = 0; i < listSize; ++i)
                 intList.Add(null);
         } // InitializeIndexProp_DEGDisplay()
 
@@ -102,31 +105,30 @@ namespace MinionMathMayhem_Ship
         // Generate the Quadratic Equation
         private void Generate()
         {
-            Debug.Log("EQN Gen Called");
 
             // Initialize the required lists
-                InitializeIndexProp();
+            InitializeIndexProp();
             // Generate the new equation indexes
-                Generate_Indexes();
+            Generate_Indexes();
             // Disallow all indexes to be 'zero'
-                Prevent_NoEquation();
+            Prevent_NoEquation();
             // Check if the equation is on the left side, right side, or mixed.
-                CheckIndexesSorting();
+            CheckIndexesSorting();
             // Translate the Indexes
-                Generate_TranslateIndexes();
+            Generate_TranslateIndexes();
             // Sort the indexes in cached arrays
-                Generate_DEGCacheSort();
+            Generate_DEGCacheSort();
             // Report the indexes to other game components that are listening
-                //ReportNewIndexPositions();
+            //ReportNewIndexPositions();
             // Display the new equation
-                Generate_Display_DEG();
+            Generate_Display_DEG();
             // Thrash Cache Array
-                ThrashListCacheValues(DEG_DisplayLeft);
-                ThrashListCacheValues(DEG_DisplayRight);
+            ThrashListCacheValues(DEG_DisplayLeft);
+            ThrashListCacheValues(DEG_DisplayRight);
             // Thrash Index Array
-                ThrashListIndexValues(index_A_Prop);
-                ThrashListIndexValues(index_B_Prop);
-                ThrashListIndexValues(index_C_Prop);
+            ThrashListIndexValues(index_A_Prop);
+            ThrashListIndexValues(index_B_Prop);
+            ThrashListIndexValues(index_C_Prop);
         } // Generate()
 
 
@@ -177,14 +179,14 @@ namespace MinionMathMayhem_Ship
             // ==============================
 
             // Index A
-                index_A_Prop[0] = ((int)GetRandomNumber(true));
-                index_A_Prop[1] = ((char)GetRandomPosition());
+            index_A_Prop[0] = ((int)GetRandomNumber(true));
+            index_A_Prop[1] = ((char)GetRandomPosition());
             // Index B
-                index_B_Prop[0] = ((int)GetRandomNumber());
-                index_B_Prop[1] = ((char)GetRandomPosition());
+            index_B_Prop[0] = ((int)GetRandomNumber());
+            index_B_Prop[1] = ((char)GetRandomPosition());
             // Index C
-                index_C_Prop[0] = ((int)GetRandomNumber());
-                index_C_Prop[1] = ((char)GetRandomPosition());
+            index_C_Prop[0] = ((int)GetRandomNumber());
+            index_C_Prop[1] = ((char)GetRandomPosition());
         } // Generate_Indexes()
 
 
@@ -198,12 +200,20 @@ namespace MinionMathMayhem_Ship
         /// </summary>
         private void Prevent_NoEquation()
         {
-            while (((int)index_A_Prop[0] == 0) && ((int)index_B_Prop[0] == 0) && ((int)index_C_Prop[0] == 0))
+            /*while (((int)index_A_Prop[0] > 1) || ((int)index_B_Prop[0] == 0) || ((int)index_C_Prop[0] == 0))
             {
-                Debug.LogWarning("[WARNING] Regenerating algebratic equation!" + "\n" +
+                Debug.Log("[WARNING] Regenerating algebratic equation!" + "\n" +
                     "If Unity stops responding, this is likely the cause.");
                 Generate_Indexes();
-            } // Prevent 0's
+            } // Prevent 0's*/
+
+            while (((int)index_A_Prop[0] == 0) || ((int)index_B_Prop[0] == 0) || ((int)index_C_Prop[0] == 0))
+            {
+                Debug.Log("[WARNING] Regenerating algebratic equation!" + "\n" +
+                    "If Unity stops responding, this is likely the cause.");
+                Generate_Indexes();
+            }
+
         } // Prevent_NoEquation()
 
 
@@ -496,5 +506,13 @@ namespace MinionMathMayhem_Ship
                     return index_C;
                 } // get
         } // Index_C
+
+        public int getMinValue() {
+            return minValue;
+        }
+
+        public int getMaxValue() {
+            return maxValue;
+        }
     } // End of Class
 } // Namespace

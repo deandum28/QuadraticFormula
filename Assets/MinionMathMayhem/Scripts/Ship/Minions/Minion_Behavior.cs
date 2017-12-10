@@ -40,8 +40,8 @@ namespace MinionMathMayhem_Ship
             // Force 'thrust' that is used when the minions have been selected.
                 private float force;
             // Minion actions:
-                private bool isClimbing = false;
-                private bool isWalking = true;
+                public bool isClimbing = false;
+                public bool isWalking = true;
             // Direction in which the Minions are thrusted
                 private Vector3 forceDirection; 
             // Multimedia

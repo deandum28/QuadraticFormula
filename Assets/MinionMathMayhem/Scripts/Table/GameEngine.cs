@@ -10,6 +10,8 @@ namespace MinionMathMayhem_Ship4
         public ProblemBox equation;
         public GameObject[] targetMinions;
         public ProjectileShooting shootingController;
+        public SpawnMinions[] numberProjectileMinions;
+        public SpawnMinions[] xProjectileMinions;
         private int[] targetHit;
 
         private int indexA;
@@ -34,6 +36,9 @@ namespace MinionMathMayhem_Ship4
 
         private int projectilesCount = 0;
 
+        private int GameStateNumber = 1;
+        private int GameStateX = 1;
+
         private void Start() { 
             GenerateNewProblem();
             targetHit = new int[4];
@@ -42,7 +47,7 @@ namespace MinionMathMayhem_Ship4
         } // End Start
 
         private void Update() {
-            if(Input.GetMouseButtonUp(0)) {
+            if(Input.GetKeyDown(KeyCode.E)) {
                 GenerateNewProblem();
             }
 
@@ -61,6 +66,8 @@ namespace MinionMathMayhem_Ship4
             UpdateTargets(targetMinions[1], box2);
             UpdateTargets(targetMinions[2], box3);
             UpdateTargets(targetMinions[3], box4);
+            setProjectilesNumbers();
+            setProjectilesXs();
         } // End GenerateNewProblem
 
         private void GenerateEQN() {
@@ -125,10 +132,18 @@ namespace MinionMathMayhem_Ship4
         } // End Generate Boxes
 
         private void GenerateCommonFactors() {
-            commonFactor1 = gcd(Mathf.Abs(box3Number), Mathf.Abs(indexC));
-            commonFactor2 = gcd(Mathf.Abs(indexA), Mathf.Abs(box4Number));
-            commonFactor3 = gcd(Mathf.Abs(indexA), Mathf.Abs(box3Number));
-            commonFactor4 = gcd(Mathf.Abs(box4Number), Mathf.Abs(indexC));
+            commonFactor1 = gcd(Mathf.Abs(box3Number), Mathf.Abs(indexC)); // |right
+            if (box3Number < 0 && indexC < 0)
+                commonFactor1 *= -1;
+            commonFactor2 = gcd(Mathf.Abs(indexA), Mathf.Abs(box4Number)); // |left
+            if (indexA < 0 && box4Number < 0)
+                commonFactor2 *= -1;
+            commonFactor3 = gcd(Mathf.Abs(indexA), Mathf.Abs(box3Number)); // -top 
+            if (indexA < 0 && box3Number < 0)
+                commonFactor3 *= -1;
+            commonFactor4 = gcd(Mathf.Abs(box4Number), Mathf.Abs(indexC)); // -bootom
+            if (box4Number < 0 && indexC < 0)
+                commonFactor4 *= -1;
 
             Debug.Log("1st gcd is: " + commonFactor1.ToString());
             Debug.Log("2nd gcd is: " + commonFactor2.ToString());
@@ -185,6 +200,37 @@ namespace MinionMathMayhem_Ship4
         private void resetTargetArray() {
             for (int i = 0; i < 4; i++)
                 targetHit[i] = 0;
+        }
+
+        private void setProjectilesNumbers() {
+            int correctMinion = Random.Range(0, 2);
+            if (GameStateX == 1)
+                numberProjectileMinions[correctMinion].setNumber(commonFactor3.ToString());
+            else numberProjectileMinions[correctMinion].setNumber(commonFactor4.ToString());
+
+            for (int i = 0; i < numberProjectileMinions.Length; i++)
+            {
+                if (correctMinion != i)
+                {
+                    int randomIndex = Random.Range(equation.getMinValue(), equation.getMaxValue());
+                    numberProjectileMinions[i].setNumber(randomIndex.ToString());
+                }
+            }
+        }
+
+
+        private void setProjectilesXs() {
+            int correctMinion = Random.Range(0, 2);
+            if (GameStateX == 1)
+                xProjectileMinions[correctMinion].setNumber(commonFactor3.ToString() + "X");
+            else xProjectileMinions[correctMinion].setNumber(commonFactor4.ToString() + "X");
+
+            for (int i = 0; i < xProjectileMinions.Length; i++) {
+                if(correctMinion != i) {
+                    int randomIndex = Random.Range(equation.getMinValue(), equation.getMaxValue());
+                    xProjectileMinions[i].setNumber(randomIndex.ToString() + "X");
+                }
+            }
         }
 
     }

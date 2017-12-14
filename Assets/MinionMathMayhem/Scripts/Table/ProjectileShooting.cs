@@ -10,7 +10,6 @@ namespace MinionMathMayhem_Ship4 {
         public float firingAngle = 45.0f;
         public float gravity = 9.8f;
 
-        public Transform Projectile;
         private Transform myTransform;
 
         public TargetController targetController;
@@ -18,6 +17,8 @@ namespace MinionMathMayhem_Ship4 {
         private int projectilesShot = 0;
 
         private bool activeShooting = true;
+
+        private GameObject projectile;
 
         void Awake() {
             myTransform = transform;
@@ -40,13 +41,14 @@ namespace MinionMathMayhem_Ship4 {
 
 
         IEnumerator SimulateProjectile() {
-            GameObject projectile =  Instantiate(Resources.Load("Sphere"), gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+            /*GameObject projectile =  Instantiate(Resources.Load("Sphere"), gameObject.transform.position, gameObject.transform.rotation) as GameObject;
             // Short delay added before Projectile is thrown
-            yield return new WaitForSeconds(1.5f);
+
 
             // Move projectile to the position of throwing object + add some offset if needed.
-            projectile.transform.position = myTransform.position + new Vector3(0, 0.0f, 0);
+            projectile.transform.position = myTransform.position + new Vector3(0, 0.0f, 0);*/
 
+            yield return new WaitForSeconds(1.5f);
             // Calculate distance to target
             float target_Distance = Vector3.Distance(projectile.transform.position, Target.position);
 
@@ -70,6 +72,18 @@ namespace MinionMathMayhem_Ship4 {
                 elapse_time += Time.deltaTime;
                 yield return null;
             }
+        }
+
+        public void instantiatetProjectile (string index) {
+            projectile = Instantiate(Resources.Load("Projectile"), gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+            projectile.tag = "Projectile";
+            Identity projectileIdentity = projectile.GetComponent<Identity>();
+            projectileIdentity.setIdentity(index);
+           
+            // Short delay added before Projectile is thrown
+
+            // Move projectile to the position of throwing object + add some offset if needed.
+            projectile.transform.position = myTransform.position + new Vector3(0, 0.0f, 10);
         }
 
         public int getShotsCount() {

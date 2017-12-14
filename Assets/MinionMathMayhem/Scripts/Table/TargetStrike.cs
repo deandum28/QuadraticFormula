@@ -15,10 +15,10 @@ namespace MinionMathMayhem_Ship4 {
                 projectileController.deactivateShooting();
                 targetController.deactivateTargeting();
                 StartCoroutine(TouchDown(other));
-            }
+           } 
                 
         }
-
+        //TODO: Change the collision. The projectile should identify if it hit the minion not the other way. With this, it will be able to determine if it was a miss hit.
         IEnumerator TouchDown(Collider other) {
             projectileController.increaseShotsCount();
             if (gameObject.tag == "TopLeft")
@@ -35,6 +35,7 @@ namespace MinionMathMayhem_Ship4 {
 
             yield return new WaitForSeconds(1f);
             Destroy(other.gameObject);
+            yield return new WaitForSeconds(1f);
             projectileController.activateShooting();
             targetController.activateTargeting();
         }
